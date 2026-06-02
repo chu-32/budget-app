@@ -316,9 +316,9 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); min-
 <script>
 // ── 데이터 ──────────────────────────────────────────────
 const CATEGORIES = {
-  '식비': { color: '#f46f6f', subs: ['장보기','배달','외식','더헤븐점심'] },
-  '교통': { color: '#f5934a', subs: ['주유비','톨비주차비','대중교통','자동차관련'] },
-  '생활': { color: '#9090a0', subs: ['생활필수품','화장품','의류미용','의류','의료건강','관람여가','기타생활'] },
+  '식비': { color: '#f46f6f', subs: ['장보기','배달','외식','더헤븐점심','세원식비'] },
+  '교통': { color: '#f5934a', subs: ['주유비','톨비주차비','대중교통','자동차관련','자동차수리/정비'] },
+  '생활': { color: '#9090a0', subs: ['생활필수품','미용/화장품','의류','의료건강','관람여가','세금','기타생활'] },
   '고정-통신': { color: '#4a9af5', subs: ['세원핸드폰','영미핸드폰','집인터넷+TV','구독'] },
   '고정-보험': { color: '#3ecf8e', subs: ['세원보험','영미보험'] },
   '고정-대출이자': { color: '#f5c842', subs: ['아파트이자-세원','아파트이자-영미','신용대출-세원','신용대출-영미','장모님이자','더헤븐대출이자','생활비대출-세원'] },
@@ -331,9 +331,9 @@ const CATEGORIES = {
 };
 
 const BUDGETS = {
-  '식비': { total: 650000, subs: { '장보기': 400000, '배달': 100000, '외식': 50000, '더헤븐점심': 100000 } },
-  '교통': { total: 230000, subs: { '주유비': 200000, '톨비주차비': 30000, '대중교통': 0, '자동차관련': 0 } },
-  '생활': { total: 0, subs: {} },
+  '식비': { total: 650000, subs: { '장보기': 400000, '배달': 100000, '외식': 50000, '더헤븐점심': 100000, '세원식비': 0 } },
+  '교통': { total: 230000, subs: { '주유비': 200000, '톨비주차비': 30000, '대중교통': 0, '자동차관련': 0, '자동차수리/정비': 0 } },
+  '생활': { total: 0, subs: { '생활필수품': 0, '미용/화장품': 0, '의류': 0, '의료건강': 0, '관람여가': 0, '세금': 0, '기타생활': 0 } },
   '고정-통신': { total: 215900, subs: { '세원핸드폰': 104910, '영미핸드폰': 31300, '집인터넷+TV': 53900, '구독': 25790 } },
   '고정-보험': { total: 207869, subs: { '세원보험': 207869, '영미보험': 0 } },
   '고정-대출이자': { total: 269853, subs: { '아파트이자-세원': 0, '아파트이자-영미': 0, '신용대출-세원': 35853, '신용대출-영미': 45000, '장모님이자': 100000, '더헤븐대출이자': 89000, '생활비대출-세원': 0 } },
@@ -361,7 +361,20 @@ const TRANSACTIONS = {
     { date:'05-03', cat:'식비', sub:'외식', name:'외식-어사또수산', amount:9000 },
     { date:'05-03', cat:'식비', sub:'장보기', name:'장보기', amount:5560 },
     { date:'05-03', cat:'생활', sub:'관람여가', name:'PC방-제로백', amount:10000 },
-    { date:'05-04', cat:'생활', sub:'생활필수품', name:'생활필수품-롯데쇼핑', amount:29940 },
+    { date:'05-04', cat:'교통', sub:'톨비주차비', name:'하이패스', amount:30000 },
+    { date:'05-04', cat:'식비', sub:'세원식비', name:'모바일식권구매', amount:16500 },
+    { date:'05-07', cat:'고정-대출이자', sub:'아파트이자-세원', name:'주거대출이자', amount:609906 },
+    { date:'05-07', cat:'고정-대출이자', sub:'아파트이자-세원', name:'주거대출이자', amount:223780 },
+    { date:'05-11', cat:'고정-대출이자', sub:'신용대출-영미', name:'대출이자', amount:7604 },
+    { date:'05-11', cat:'고정-대출이자', sub:'신용대출-세원', name:'신용대출이자', amount:37516 },
+    { date:'05-11', cat:'고정-보험', sub:'세원보험', name:'AIA보험', amount:118339 },
+    { date:'05-11', cat:'기부금', sub:'기부금', name:'어린이재단', amount:10000 },
+    { date:'05-13', cat:'고정-보험', sub:'세원보험', name:'세원보험-하나카드', amount:31330 },
+    { date:'05-20', cat:'교통', sub:'톨비주차비', name:'하이패스', amount:30000 },
+    { date:'05-22', cat:'식비', sub:'세원식비', name:'모바일식권구매', amount:11000 },
+    { date:'05-22', cat:'식비', sub:'세원식비', name:'모바일식권구매', amount:99000 },
+    { date:'05-26', cat:'고정-보험', sub:'세원보험', name:'DB손해보험', amount:12000 },
+    { date:'05-27', cat:'교통', sub:'톨비주차비', name:'하이패스', amount:30000 },
     { date:'05-04', cat:'생활', sub:'생활필수품', name:'생활필수품-롯데쇼핑 할부', amount:107641, memo:'1회차/3개월 할부' },
     { date:'05-04', cat:'생활', sub:'생활필수품', name:'롯데ON 포인트 차감', amount:-2000 },
     { date:'05-05', cat:'식비', sub:'더헤븐점심', name:'더헤븐점심-바나프레소', amount:8500 },
@@ -380,7 +393,7 @@ const TRANSACTIONS = {
     { date:'05-09', cat:'생활', sub:'의료건강', name:'약국-참약국', amount:7500 },
     { date:'05-09', cat:'생활', sub:'생활필수품', name:'생활필수품-11번가', amount:83400 },
     { date:'05-11', cat:'더헤븐-고정', sub:'더헤븐-렌탈', name:'더헤븐-렌탈 코웨이', amount:28700 },
-    { date:'05-12', cat:'생활', sub:'화장품', name:'화장품-올리브영', amount:28500 },
+    { date:'05-12', cat:'생활', sub:'미용/화장품', name:'화장품-올리브영', amount:28500 },
     { date:'05-12', cat:'고정-통신', sub:'구독', name:'구독-우주패스', amount:13900 },
     { date:'05-13', cat:'식비', sub:'더헤븐점심', name:'더헤븐점심-컴포즈', amount:2900 },
     { date:'05-13', cat:'식비', sub:'배달', name:'배달-우아한형제들', amount:28900 },
@@ -391,32 +404,51 @@ const TRANSACTIONS = {
     { date:'05-17', cat:'식비', sub:'배달', name:'배달-우아한형제들', amount:18900 },
     { date:'05-18', cat:'교통', sub:'대중교통', name:'택시', amount:6600 },
     { date:'05-18', cat:'교통', sub:'대중교통', name:'택시', amount:6900 },
-    { date:'05-18', cat:'교통', sub:'자동차관련', name:'자동차수리-KG모빌리티', amount:142010, memo:'1회차/5개월 할부' },
+    { date:'05-18', cat:'교통', sub:'자동차수리/정비', name:'자동차수리-KG모빌리티', amount:142010, memo:'1회차/5개월 할부' },
     { date:'05-19', cat:'교통', sub:'주유비', name:'주유비-도이치에너지', amount:69300 },
     { date:'05-20', cat:'식비', sub:'외식', name:'외식-매교소갈비', amount:13000 },
-    { date:'05-20', cat:'생활', sub:'의류미용', name:'미용-리안헤어', amount:20000 },
+    { date:'05-20', cat:'생활', sub:'미용/화장품', name:'미용-리안헤어', amount:20000 },
     { date:'05-21', cat:'식비', sub:'배달', name:'배달-보영만두', amount:19500 },
     { date:'05-21', cat:'고정-통신', sub:'구독', name:'구독-Disney+', amount:9900 },
     { date:'05-22', cat:'식비', sub:'배달', name:'배달-배스킨라빈스', amount:1900 },
     { date:'05-22', cat:'식비', sub:'외식', name:'외식-매교동태탕', amount:23000 },
     { date:'05-23', cat:'식비', sub:'배달', name:'배달-우아한형제들', amount:35600 },
-    { date:'05-23', cat:'생활', sub:'관람여가', name:'넥슨게임', amount:40000 },
-    { date:'05-23', cat:'교통', sub:'자동차관련', name:'자동차수리-카바조', amount:154000, memo:'일시불' },
-    { date:'05-25', cat:'교통', sub:'자동차관련', name:'자동차수리-KG모빌리티권선', amount:164400, memo:'1회차/5개월 할부' },
+    { date:'05-23', cat:'생활', sub:'기타생활', name:'기타-넥슨게임', amount:40000 },
+    { date:'05-23', cat:'교통', sub:'자동차수리/정비', name:'자동차수리-카바조', amount:77000, memo:'일시불' },
+    { date:'05-25', cat:'교통', sub:'자동차수리/정비', name:'자동차수리-KG모빌리티권선', amount:164400, memo:'1회차/5개월 할부' },
     { date:'05-25', cat:'생활', sub:'생활필수품', name:'생활필수품-다이소', amount:4000 },
     { date:'05-25', cat:'식비', sub:'장보기', name:'장보기-GS더프레시', amount:23240 },
     { date:'05-25', cat:'생활', sub:'관람여가', name:'PC방-제로백', amount:3000 },
-    { date:'05-01', cat:'생활', sub:'관람여가', name:'넥슨게임 할부', amount:13500, memo:'과거결제 잔여 2회' },
+    { date:'05-25', cat:'식비', sub:'배달', name:'배달-우아한형제들', amount:14900 },
+    { date:'05-25', cat:'교통', sub:'대중교통', name:'택시', amount:9300 },
+    { date:'05-25', cat:'교통', sub:'대중교통', name:'택시', amount:8200 },
+    { date:'05-26', cat:'교육', sub:'도서및영상', name:'도서-교보문고', amount:77400 },
+    { date:'05-26', cat:'식비', sub:'배달', name:'배달-우아한형제들', amount:19300 },
+    { date:'05-27', cat:'교통', sub:'주유비', name:'주유비-대성석유', amount:70000 },
+    { date:'05-28', cat:'식비', sub:'장보기', name:'장보기-국군복지단', amount:4450 },
+    { date:'05-28', cat:'생활', sub:'기타생활', name:'우정사업본부우체국', amount:4000 },
+    { date:'05-29', cat:'생활', sub:'의료건강', name:'약국-매교베스트', amount:60000 },
+    { date:'05-29', cat:'식비', sub:'장보기', name:'장보기-GS더프레시', amount:8640 },
+    { date:'05-29', cat:'식비', sub:'더헤븐점심', name:'더헤븐점심-메가커피', amount:7800 },
+    { date:'05-30', cat:'식비', sub:'장보기', name:'장보기-코스트코', amount:170120 },
+    { date:'05-30', cat:'식비', sub:'외식', name:'외식-맥프라이매교점', amount:38800 },
+    { date:'05-30', cat:'식비', sub:'외식', name:'외식-스타벅스', amount:10000 },
+    { date:'05-31', cat:'교통', sub:'대중교통', name:'경기시내버스', amount:8250 },
+    { date:'05-01', cat:'생활', sub:'기타생활', name:'기타-넥슨게임 할부', amount:13500, memo:'과거결제 잔여 2회' },
     { date:'05-01', cat:'생활', sub:'의류', name:'의류-삼성물산패션 할부', amount:45680, memo:'과거결제 잔여 2회' },
-    { date:'05-01', cat:'교통', sub:'자동차관련', name:'타이어뱅크 할부', amount:150000, memo:'과거결제 잔여 1회' },
-    { date:'05-01', cat:'교통', sub:'자동차관련', name:'자동차-KG모빌리티화서 할부', amount:121200, memo:'과거결제 잔여 1회' },
+    { date:'05-01', cat:'교통', sub:'자동차수리/정비', name:'타이어뱅크 할부', amount:150000, memo:'과거결제 잔여 1회' },
+    { date:'05-01', cat:'교통', sub:'자동차수리/정비', name:'자동차-KG모빌리티화서 할부', amount:121200, memo:'과거결제 잔여 1회' },
   ],
   6: [],
   7: [],
 };
 
 const INCOME = {
-  5: [{ date:'05-25', cat:'세원급여', name:'세원 월급', amount:3300000 }],
+  5: [
+    { date:'05-22', cat:'세원급여', name:'세원 월급 (병영상담관급여)', amount:3027380 },
+    { date:'05-19', cat:'세원수당', name:'상담여비 2,3월분', amount:400000 },
+    { date:'05-14', cat:'세원수당', name:'추세원 (수당)', amount:70000 },
+  ],
   6: [],
   7: [],
 };
@@ -534,11 +566,15 @@ function render() {
   });
 }
 
-function renderSubRows(cat, subs, subSpent, tbody, afterRow) {
+function renderSubRows(cat, subs, subSpent, tbody) {
   const catRow = document.getElementById(`cat-${cat}`);
+  if (!catRow) return;
   let ref = catRow;
-  Object.entries(subs).forEach(([sub, budget]) => {
-    const s = subSpent[sub] || 0;
+  // CATEGORIES의 subs 순서로 표시 (예산 미설정 항목도 포함)
+  const allSubs = CATEGORIES[cat] ? CATEGORIES[cat].subs : Object.keys(subs);
+  allSubs.forEach(sub => {
+    const budget = subs[sub] || 0;
+    const s = (subSpent && subSpent[sub]) || 0;
     const p = pct(s, budget);
     const remain = budget - s;
     const barClass = p === null ? '' : p >= 100 ? 'bar-over' : p >= 80 ? 'bar-warn' : 'bar-ok';
@@ -574,7 +610,8 @@ function toggleSub(cat, subs, subSpent) {
     if (arrow) arrow.classList.remove('open');
   } else {
     const tbody = document.getElementById('budget-tbody');
-    renderSubRows(cat, subs, subSpent, tbody);
+    // subSpent가 없을 경우 빈 객체로 처리
+    renderSubRows(cat, subs, subSpent || {}, tbody);
     if (arrow) arrow.classList.add('open');
   }
 }
